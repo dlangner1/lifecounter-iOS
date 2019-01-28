@@ -23,15 +23,19 @@
 
 - (void)setupPlayerLifeViews
 {
-    self.playerLifeViews = [[NSArray<PlayerLifeView *> alloc] init];
-    PlayerLifeView *playerView = [[PlayerLifeView alloc]init];
-    [self.view addSubview:playerView];
+    PlayerLifeView *firstPlayerView = [[PlayerLifeView alloc]init];
+    [self.view addSubview:firstPlayerView];
     
-    playerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [playerView.heightAnchor constraintEqualToConstant:100];
-    [playerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:50].active = YES;
-    [playerView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
-    [playerView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
+
+    firstPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [firstPlayerView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor constant:10].active = YES;
+    [firstPlayerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:30].active = YES;
+    [firstPlayerView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor constant:10].active = YES;
+}
+
+- (void)setPlayerViewConstraints:(PlayerLifeView *)playerView withTopAnchor:(NSLayoutAnchor *)topAnchor
+{
 }
 
 @end

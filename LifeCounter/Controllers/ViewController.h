@@ -11,7 +11,7 @@
 
 @interface ViewController : UIViewController
 
-@property NSArray<PlayerLifeView *> *playerLifeViews;
+@property NSMutableArray<PlayerLifeView *> *playerLifeViews;
 
 @end
 
