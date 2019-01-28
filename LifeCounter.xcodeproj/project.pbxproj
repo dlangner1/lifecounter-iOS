@@ -14,6 +14,7 @@
 		F293AD2E21FBB90C00A99014 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F293AD2C21FBB90C00A99014 /* LaunchScreen.storyboard */; };
 		F293AD3121FBB90C00A99014 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD3021FBB90C00A99014 /* main.m */; };
 		F293AD3B21FBB90C00A99014 /* LifeCounterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD3A21FBB90C00A99014 /* LifeCounterTests.m */; };
+		F293AD4A21FBC1CC00A99014 /* PlayerLifeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		F293AD3621FBB90C00A99014 /* LifeCounterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeCounterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F293AD3A21FBB90C00A99014 /* LifeCounterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LifeCounterTests.m; sourceTree = "<group>"; };
 		F293AD3C21FBB90C00A99014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F293AD4821FBC1CC00A99014 /* PlayerLifeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerLifeView.h; sourceTree = "<group>"; };
+		F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerLifeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,13 +84,12 @@
 		F293AD2021FBB90900A99014 /* LifeCounter */ = {
 			isa = PBXGroup;
 			children = (
+				F293AD4621FBBAF200A99014 /* Storyboards */,
+				F293AD4521FBBADC00A99014 /* Controllers */,
+				F293AD4721FBC02400A99014 /* Views */,
 				F293AD2121FBB90900A99014 /* AppDelegate.h */,
 				F293AD2221FBB90900A99014 /* AppDelegate.m */,
-				F293AD2421FBB90900A99014 /* ViewController.h */,
-				F293AD2521FBB90900A99014 /* ViewController.m */,
-				F293AD2721FBB90900A99014 /* Main.storyboard */,
 				F293AD2A21FBB90C00A99014 /* Assets.xcassets */,
-				F293AD2C21FBB90C00A99014 /* LaunchScreen.storyboard */,
 				F293AD2F21FBB90C00A99014 /* Info.plist */,
 				F293AD3021FBB90C00A99014 /* main.m */,
 			);
@@ -101,6 +103,33 @@
 				F293AD3C21FBB90C00A99014 /* Info.plist */,
 			);
 			path = LifeCounterTests;
+			sourceTree = "<group>";
+		};
+		F293AD4521FBBADC00A99014 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F293AD2421FBB90900A99014 /* ViewController.h */,
+				F293AD2521FBB90900A99014 /* ViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F293AD4621FBBAF200A99014 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				F293AD2C21FBB90C00A99014 /* LaunchScreen.storyboard */,
+				F293AD2721FBB90900A99014 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		F293AD4721FBC02400A99014 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F293AD4821FBC1CC00A99014 /* PlayerLifeView.h */,
+				F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,6 +235,7 @@
 				F293AD2621FBB90900A99014 /* ViewController.m in Sources */,
 				F293AD3121FBB90C00A99014 /* main.m in Sources */,
 				F293AD2321FBB90900A99014 /* AppDelegate.m in Sources */,
+				F293AD4A21FBC1CC00A99014 /* PlayerLifeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dustinlangner.LifeCounter;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.washington.dlangner.LifeCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -387,7 +417,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dustinlangner.LifeCounter;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.washington.dlangner.LifeCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

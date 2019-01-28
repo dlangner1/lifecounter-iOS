@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PlayerLifeView.h
 //  LifeCounter
 //
 //  Created by Dustin Langner on 1/25/19.
@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PlayerLifeView : UIView
+
 
 
 @end
 
+NS_ASSUME_NONNULL_END
