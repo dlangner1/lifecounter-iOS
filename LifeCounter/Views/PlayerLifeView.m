@@ -78,7 +78,7 @@
     [playerNameTextField.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:10].active = YES;
     [playerNameTextField.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [playerNameTextField.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [playerNameTextField.widthAnchor constraintEqualToConstant:100].active = YES;
+    [playerNameTextField.widthAnchor constraintEqualToConstant:90].active = YES;
     
     buttonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [buttonContainerView.leftAnchor constraintEqualToAnchor:playerNameTextField.rightAnchor constant:10].active = YES;
