@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class PlayerLifeView;
+#import "PlayerLifeView.h" 
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <PlayerLifeViewDelegate>
 
 @property NSMutableArray<PlayerLifeView *> *playerLifeViews;
 

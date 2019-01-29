@@ -24,10 +24,12 @@
     UIButton *minusFiveButton;
 }
 
-- (instancetype)init
+- (instancetype)initWithDelegate:(id <PlayerLifeViewDelegate>)delegate
 {
     self = [super init];
     if (self) {
+        self.delegate = delegate;
+        
         // Life State
         currentLifeCount = 20;
         
@@ -112,24 +114,50 @@
 {
     currentLifeCount += 1;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    [self hideLosingLabelIfNeeded];
 }
 
 - (void)decrementLifeLabelOne
 {
+    if (currentLifeCount == 0) {
+        return;
+    }
     currentLifeCount -= 1;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    [self showingLosingLabelIfNeeded];
 }
 
 - (void)incrementLifeLabelFive
 {
     currentLifeCount += 5;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    [self hideLosingLabelIfNeeded];
 }
 
 - (void)decrementLifeLabelFive
 {
-    currentLifeCount -= 5;
+    if (currentLifeCount == 0 || currentLifeCount - 5 <= 0) {
+        currentLifeCount = 0;
+    } else {
+        currentLifeCount -= 5;
+    }
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    [self showingLosingLabelIfNeeded];
+}
+
+
+- (void)showingLosingLabelIfNeeded
+{
+    if (currentLifeCount == 0 && [self.delegate respondsToSelector:@selector(presentLosingPlayer:)]) {
+        [self.delegate presentLosingPlayer:playerNameTextField.text];
+    }
+}
+
+- (void)hideLosingLabelIfNeeded
+{
+    if (currentLifeCount > 0 && [self.delegate respondsToSelector:@selector(hideLosingPlayerLabel)]) {
+        [self.delegate hideLosingPlayerLabel];
+    }
 }
 
 @end

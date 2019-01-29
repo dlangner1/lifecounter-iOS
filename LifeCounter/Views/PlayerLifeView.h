@@ -10,9 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol PlayerLifeViewDelegate <NSObject>
+
+- (void)presentLosingPlayer:(NSString *)playerName;
+
+- (void)hideLosingPlayerLabel;
+
+@end
+
 @interface PlayerLifeView : UIView
 
+@property (nonatomic, weak) id<PlayerLifeViewDelegate> delegate;
 
+- (instancetype)initWithDelegate:(id <PlayerLifeViewDelegate>)delegate;
 
 @end
 
