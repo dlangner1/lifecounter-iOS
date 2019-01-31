@@ -12,7 +12,8 @@
 
 @implementation PlayerLifeView
 {
-    UITextField *playerNameTextField;
+    UILabel *playerNameLabel;
+    
     
     UILabel *lifeCountLabel;
     int currentLifeCount;
@@ -24,6 +25,8 @@
     UIButton *minusFiveButton;
 }
 
+static int playerNumber = 0;
+
 - (instancetype)initWithDelegate:(id <PlayerLifeViewDelegate>)delegate
 {
     self = [super init];
@@ -34,11 +37,13 @@
         currentLifeCount = 20;
         
         // Initialize all subviews
-        playerNameTextField = [[UITextField alloc]initWithFrame:CGRectZero];
-        playerNameTextField.borderStyle = UITextBorderStyleRoundedRect;
-        playerNameTextField.backgroundColor = UIColor.whiteColor;
-        [playerNameTextField setPlaceholder:@"Name..."];
-        [self addSubview:playerNameTextField];
+        
+        playerNumber += 1;
+        playerNameLabel = [[UILabel alloc]init];
+        [playerNameLabel setTextColor:UIColor.whiteColor];
+        [playerNameLabel setFont:[UIFont systemFontOfSize:22]];
+        playerNameLabel.text = [NSString stringWithFormat: @"Player %d", playerNumber];
+        [self addSubview:playerNameLabel];
     
         plusOneButton = [self createLifeCountButtonWithLabelText:@"+" Action:@selector(incrementLifeLabelOne)];
         minusOneButton = [self createLifeCountButtonWithLabelText:@"-" Action:@selector(decrementLifeLabelOne)];
@@ -74,20 +79,20 @@
 
 - (void)setSubviewConstraints
 {
-    playerNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
-    [playerNameTextField.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:10].active = YES;
-    [playerNameTextField.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [playerNameTextField.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [playerNameTextField.widthAnchor constraintEqualToConstant:90].active = YES;
+    playerNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [playerNameLabel.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+    [playerNameLabel.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+    [playerNameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+//    [playerNameLabel.widthAnchor constraintEqualToConstant:90].active = YES;
     
     buttonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [buttonContainerView.leftAnchor constraintEqualToAnchor:playerNameTextField.rightAnchor constant:10].active = YES;
+    [buttonContainerView.leftAnchor constraintEqualToAnchor:playerNameLabel.rightAnchor constant:20].active = YES;
     [buttonContainerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [buttonContainerView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     [buttonContainerView.heightAnchor constraintEqualToConstant:100].active = YES;
     
     lifeCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [lifeCountLabel.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:-10].active = YES;
+    [lifeCountLabel.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [lifeCountLabel.leftAnchor constraintEqualToAnchor:buttonContainerView.rightAnchor constant:10].active = YES;
     [lifeCountLabel.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [lifeCountLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
@@ -149,7 +154,7 @@
 - (void)showingLosingLabelIfNeeded
 {
     if (currentLifeCount == 0 && [self.delegate respondsToSelector:@selector(presentLosingPlayer:)]) {
-        [self.delegate presentLosingPlayer:playerNameTextField.text];
+        [self.delegate presentLosingPlayer:playerNameLabel.text];
     }
 }
 
@@ -158,6 +163,11 @@
     if (currentLifeCount > 0 && [self.delegate respondsToSelector:@selector(hideLosingPlayerLabel)]) {
         [self.delegate hideLosingPlayerLabel];
     }
+}
+
++ (int)playerNumber
+{
+    return playerNumber;
 }
 
 @end
