@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface PlayerLifeView : UIView
+@interface PlayerLifeView : UIView <UITextFieldDelegate>
 
 @property (nonatomic, weak) id<PlayerLifeViewDelegate> delegate;
 @property (nonatomic) int currentLifeCount;

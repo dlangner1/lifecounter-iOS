@@ -18,8 +18,12 @@
     UIStackView *buttonContainerView;
     UIButton *plusOneButton;
     UIButton *minusOneButton;
-    UIButton *plusFiveButton;
-    UIButton *minusFiveButton;
+    
+    UIButton *plusXButton;
+    UITextField *plusXTextField;
+    
+    UIButton *minusXButton;
+    UITextField *minusXTextField;
 }
 
 static int playerNumber = 0;
@@ -35,14 +39,26 @@ static int playerNumber = 0;
         playerNumber += 1;
         playerNameLabel = [[UILabel alloc]init];
         [playerNameLabel setTextColor:UIColor.whiteColor];
-        [playerNameLabel setFont:[UIFont systemFontOfSize:22]];
+        [playerNameLabel setFont:[UIFont systemFontOfSize:18]];
         playerNameLabel.text = [NSString stringWithFormat: @"Player %d", playerNumber];
         [self addSubview:playerNameLabel];
     
-        plusOneButton = [self createLifeCountButtonWithLabelText:@"+" Action:@selector(incrementLifeLabelOne)];
-        minusOneButton = [self createLifeCountButtonWithLabelText:@"-" Action:@selector(decrementLifeLabelOne)];
-        plusFiveButton = [self createLifeCountButtonWithLabelText:@"+5" Action:@selector(incrementLifeLabelFive)];
-        minusFiveButton = [self createLifeCountButtonWithLabelText:@"-5" Action:@selector(decrementLifeLabelFive)];
+        plusOneButton = [self createLifeCountButtonWithLabelText:@"+1" Action:@selector(incrementLifeLabelOne)];
+        minusOneButton = [self createLifeCountButtonWithLabelText:@"-1" Action:@selector(decrementLifeLabelOne)];
+        plusXButton = [self createLifeCountButtonWithLabelText:@"+" Action:@selector(incrementLifeLabelX)];
+        minusXButton = [self createLifeCountButtonWithLabelText:@"-" Action:@selector(decrementLifeLabelX)];
+        
+        plusXTextField = [[UITextField alloc]init];
+        plusXTextField.keyboardType = UIKeyboardTypeNumberPad;
+        plusXTextField.backgroundColor = UIColor.whiteColor;
+        plusXTextField.text = @"5";
+        plusXTextField.delegate = self;
+        
+        minusXTextField = [[UITextField alloc]init];
+        minusXTextField.keyboardType = UIKeyboardTypeNumberPad;
+        minusXTextField.backgroundColor = UIColor.whiteColor;
+        minusXTextField.text = @"5";
+        minusXTextField.delegate = self;
         
         buttonContainerView = [[UIStackView alloc]init];
         buttonContainerView.axis = UILayoutConstraintAxisHorizontal;
@@ -52,8 +68,10 @@ static int playerNumber = 0;
         
         [buttonContainerView addArrangedSubview:plusOneButton];
         [buttonContainerView addArrangedSubview:minusOneButton];
-        [buttonContainerView addArrangedSubview:plusFiveButton];
-        [buttonContainerView addArrangedSubview:minusFiveButton];
+        [buttonContainerView addArrangedSubview:plusXButton];
+        [buttonContainerView addArrangedSubview:plusXTextField];
+        [buttonContainerView addArrangedSubview:minusXButton];
+        [buttonContainerView addArrangedSubview:minusXTextField];
         [self addSubview:buttonContainerView];
         
         lifeCountLabel = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -76,6 +94,8 @@ static int playerNumber = 0;
     playerNumber -= 1;
 }
 
+# pragma mark Layout
+
 - (void)setSubviewConstraints
 {
     playerNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -88,29 +108,19 @@ static int playerNumber = 0;
     [buttonContainerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [buttonContainerView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     
+    [plusXTextField.heightAnchor constraintEqualToConstant:30].active = YES;
+    [minusXTextField.heightAnchor constraintEqualToConstant:30].active = YES;
+    
     lifeCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [lifeCountLabel.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [lifeCountLabel.leftAnchor constraintEqualToAnchor:buttonContainerView.rightAnchor constant:10].active = YES;
     [lifeCountLabel.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [lifeCountLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [lifeCountLabel.widthAnchor constraintEqualToConstant:30].active = YES;
-    [lifeCountLabel.heightAnchor constraintEqualToConstant:30].active = YES;
+    [lifeCountLabel.widthAnchor constraintEqualToConstant:40].active = YES;
+    [lifeCountLabel.heightAnchor constraintEqualToConstant:40].active = YES;
 }
 
-- (UIButton *)createLifeCountButtonWithLabelText:(NSString *)text Action:(nonnull SEL)action
-{
-    UIButton *button = [[UIButton alloc]init];
-    button.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:52.0/255.0 blue:71.0/255.0 alpha:1.0];
-    button.layer.cornerRadius = 10;
-    
-    [button setTitle:text forState:UIControlStateNormal];
-    [button.titleLabel setFont: [UIFont systemFontOfSize:22]];
-    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [button setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
-    
-    return button;
-}
+# pragma Button Actions
 
 - (void)incrementLifeLabelOne
 {
@@ -129,23 +139,41 @@ static int playerNumber = 0;
     [self showingLosingLabelIfNeeded];
 }
 
-- (void)incrementLifeLabelFive
+- (void)incrementLifeLabelX
 {
-    self.currentLifeCount += 5;
+    int value = plusXTextField.text.intValue;
+    self.currentLifeCount += value;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
 }
 
-- (void)decrementLifeLabelFive
+- (void)decrementLifeLabelX
 {
-    if (self.currentLifeCount == 0 || self.currentLifeCount - 5 <= 0) {
+    int value = minusXTextField.text.intValue;
+    if (self.currentLifeCount == 0 || self.currentLifeCount - value <= 0) {
         self.currentLifeCount = 0;
     } else {
-        self.currentLifeCount -= 5;
+        self.currentLifeCount -= value;
     }
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
 }
+
+# pragma mark UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 2;
+}
+
+
+# pragma mark PlayerLifeViewDelegate Callers
 
 - (void)showingLosingLabelIfNeeded
 {
@@ -160,6 +188,25 @@ static int playerNumber = 0;
         [self.delegate hideLosingPlayerLabel];
     }
 }
+
+# pragma Helpers
+
+- (UIButton *)createLifeCountButtonWithLabelText:(NSString *)text Action:(nonnull SEL)action
+{
+    UIButton *button = [[UIButton alloc]init];
+    button.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:52.0/255.0 blue:71.0/255.0 alpha:1.0];
+    button.layer.cornerRadius = 10;
+    
+    [button setTitle:text forState:UIControlStateNormal];
+    [button.titleLabel setFont: [UIFont systemFontOfSize:22]];
+    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [button setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
+}
+
+# pragma mark Class methods
 
 + (int)playerNumber
 {
