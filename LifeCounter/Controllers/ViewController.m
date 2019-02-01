@@ -8,14 +8,19 @@
 
 #import "ViewController.h"
 #import "PlayerLifeView.h"
+#import "PlayerManagerView.h"
 
 @interface ViewController ()
 
 @end
 
-@implementation ViewController {
+@implementation ViewController
+{
+    UIScrollView *scrollView;
+    
     UIStackView *playerLifeContainerView;
     UILabel *losingPlayerLabel;
+    PlayerManagerView *playerManagerView;
 }
 
 - (void)viewDidLoad {
@@ -29,6 +34,18 @@
     losingPlayerLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:losingPlayerLabel];
     
+    playerManagerView = [[PlayerManagerView alloc]initWithDelegate:self];
+    [self.view addSubview:playerManagerView];
+    
+//    scrollView = [[UIScrollView alloc]init];
+//    scrollView.showsVerticalScrollIndicator = YES;
+//    [self.view addSubview:scrollView];
+//    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [scrollView.topAnchor constraintEqualToAnchor:playerManagerView.bottomAnchor].active = YES;
+//    [scrollView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
+//    [scrollView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
+//    [scrollView.bottomAnchor constraintLessThanOrEqualToAnchor:losingPlayerLabel.topAnchor constant:-10].active = YES;
+    
     [self setupPlayerLifeViews];
     [self setSubviewConstraints];
 }
@@ -38,14 +55,16 @@
     playerLifeContainerView = [[UIStackView alloc]init];
     playerLifeContainerView.axis = UILayoutConstraintAxisVertical;
     playerLifeContainerView.alignment = UIStackViewAlignmentCenter;
+    playerLifeContainerView.spacing = 10;
     playerLifeContainerView.distribution = UIStackViewDistributionEqualSpacing;
     
     for (int i = 0; i < 4; i++) {
-        PlayerLifeView *playerView = [[PlayerLifeView alloc]initWithDelegate:self];
-        [playerLifeContainerView addArrangedSubview:playerView];
+        [self addPlayerLifeView];
     }
     [self.view addSubview:playerLifeContainerView];
 }
+
+#pragma mark Layout
 
 - (void)setSubviewConstraints
 {
@@ -53,12 +72,20 @@
     [losingPlayerLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
     [losingPlayerLabel.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10].active = YES;
     
+    playerManagerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [playerManagerView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
+    [playerManagerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
+    [playerManagerView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
+    [playerManagerView.heightAnchor constraintEqualToConstant:100].active = YES;
+    
     playerLifeContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [playerLifeContainerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:50].active = YES;
+    [playerLifeContainerView.topAnchor constraintEqualToAnchor:playerManagerView.bottomAnchor].active = YES;
     [playerLifeContainerView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
     [playerLifeContainerView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
-    [playerLifeContainerView.bottomAnchor constraintEqualToAnchor:losingPlayerLabel.topAnchor constant:-40].active = YES;
+    [playerLifeContainerView.bottomAnchor constraintLessThanOrEqualToAnchor:losingPlayerLabel.topAnchor constant:-10].active = YES;
 }
+
+# pragma mark PlayerLifeViewsDelegate
 
 - (void)presentLosingPlayer:(NSString *)playerName
 {
@@ -78,6 +105,22 @@
 {
     losingPlayerLabel.text = @"";
     losingPlayerLabel.hidden = YES;
+}
+
+
+# pragma mark PlayerManagerViewDelegate
+
+- (void)addPlayerLifeView {
+    PlayerLifeView *playerView = [[PlayerLifeView alloc]initWithDelegate:self];
+    [playerLifeContainerView addArrangedSubview:playerView];
+    [playerManagerView.playerLifeViews addObject:playerView];
+}
+
+- (void)removePlayerLifeView {
+    int lastIndex = playerManagerView.playerLifeViews.count - 1.0;
+    PlayerLifeView *viewForRemoval = playerManagerView.playerLifeViews[lastIndex];
+    [playerManagerView.playerLifeViews removeLastObject];
+    [viewForRemoval removeFromSuperview];
 }
 
 @end

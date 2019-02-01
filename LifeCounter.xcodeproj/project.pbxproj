@@ -15,6 +15,7 @@
 		F293AD3121FBB90C00A99014 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD3021FBB90C00A99014 /* main.m */; };
 		F293AD3B21FBB90C00A99014 /* LifeCounterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD3A21FBB90C00A99014 /* LifeCounterTests.m */; };
 		F293AD4A21FBC1CC00A99014 /* PlayerLifeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */; };
+		F2FB058B2203C5080075F9AE /* PlayerManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FB058A2203C5080075F9AE /* PlayerManagerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		F293AD3C21FBB90C00A99014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F293AD4821FBC1CC00A99014 /* PlayerLifeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerLifeView.h; sourceTree = "<group>"; };
 		F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerLifeView.m; sourceTree = "<group>"; };
+		F2FB05892203C5080075F9AE /* PlayerManagerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerManagerView.h; sourceTree = "<group>"; };
+		F2FB058A2203C5080075F9AE /* PlayerManagerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerManagerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 			children = (
 				F293AD4821FBC1CC00A99014 /* PlayerLifeView.h */,
 				F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */,
+				F2FB05892203C5080075F9AE /* PlayerManagerView.h */,
+				F2FB058A2203C5080075F9AE /* PlayerManagerView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F293AD2621FBB90900A99014 /* ViewController.m in Sources */,
+				F2FB058B2203C5080075F9AE /* PlayerManagerView.m in Sources */,
 				F293AD3121FBB90C00A99014 /* main.m in Sources */,
 				F293AD2321FBB90900A99014 /* AppDelegate.m in Sources */,
 				F293AD4A21FBC1CC00A99014 /* PlayerLifeView.m in Sources */,

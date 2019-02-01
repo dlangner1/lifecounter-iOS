@@ -14,10 +14,10 @@
 {
     UILabel *playerNameLabel;
     
-    
     UILabel *lifeCountLabel;
     int currentLifeCount;
     
+    UIScrollView *scrollView;
     UIStackView *buttonContainerView;
     UIButton *plusOneButton;
     UIButton *minusOneButton;
@@ -32,12 +32,9 @@ static int playerNumber = 0;
     self = [super init];
     if (self) {
         self.delegate = delegate;
-        
-        // Life State
         currentLifeCount = 20;
         
         // Initialize all subviews
-        
         playerNumber += 1;
         playerNameLabel = [[UILabel alloc]init];
         [playerNameLabel setTextColor:UIColor.whiteColor];
@@ -77,27 +74,30 @@ static int playerNumber = 0;
     return self;
 }
 
+- (void)dealloc
+{
+    playerNumber -= 1;
+}
+
 - (void)setSubviewConstraints
 {
     playerNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [playerNameLabel.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
     [playerNameLabel.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [playerNameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-//    [playerNameLabel.widthAnchor constraintEqualToConstant:90].active = YES;
     
     buttonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [buttonContainerView.leftAnchor constraintEqualToAnchor:playerNameLabel.rightAnchor constant:20].active = YES;
     [buttonContainerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [buttonContainerView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [buttonContainerView.heightAnchor constraintEqualToConstant:100].active = YES;
     
     lifeCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [lifeCountLabel.rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
     [lifeCountLabel.leftAnchor constraintEqualToAnchor:buttonContainerView.rightAnchor constant:10].active = YES;
     [lifeCountLabel.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [lifeCountLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [lifeCountLabel.widthAnchor constraintEqualToConstant:50].active = YES;
-    [lifeCountLabel.heightAnchor constraintEqualToConstant:50].active = YES;
+    [lifeCountLabel.widthAnchor constraintEqualToConstant:30].active = YES;
+    [lifeCountLabel.heightAnchor constraintEqualToConstant:30].active = YES;
 }
 
 - (UIButton *)createLifeCountButtonWithLabelText:(NSString *)text Action:(nonnull SEL)action
@@ -149,7 +149,6 @@ static int playerNumber = 0;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
     [self showingLosingLabelIfNeeded];
 }
-
 
 - (void)showingLosingLabelIfNeeded
 {
