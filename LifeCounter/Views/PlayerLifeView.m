@@ -13,11 +13,8 @@
 @implementation PlayerLifeView
 {
     UILabel *playerNameLabel;
-    
     UILabel *lifeCountLabel;
-    int currentLifeCount;
     
-    UIScrollView *scrollView;
     UIStackView *buttonContainerView;
     UIButton *plusOneButton;
     UIButton *minusOneButton;
@@ -32,7 +29,7 @@ static int playerNumber = 0;
     self = [super init];
     if (self) {
         self.delegate = delegate;
-        currentLifeCount = 20;
+        self.currentLifeCount = 20;
         
         // Initialize all subviews
         playerNumber += 1;
@@ -61,7 +58,7 @@ static int playerNumber = 0;
         
         lifeCountLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         lifeCountLabel.backgroundColor = [UIColor colorWithRed:197.0/255 green:31.0/255.0 blue:93.0/255.0 alpha:1.0];
-        lifeCountLabel.text = [NSString stringWithFormat: @"%d", currentLifeCount];
+        lifeCountLabel.text = [NSString stringWithFormat: @"%d", self.currentLifeCount];
         [lifeCountLabel setTextColor:UIColor.whiteColor];
         lifeCountLabel.textAlignment = NSTextAlignmentCenter;
         [lifeCountLabel setFont: [UIFont systemFontOfSize:20]];
@@ -87,7 +84,7 @@ static int playerNumber = 0;
     [playerNameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     
     buttonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [buttonContainerView.leftAnchor constraintEqualToAnchor:playerNameLabel.rightAnchor constant:20].active = YES;
+    [buttonContainerView.leftAnchor constraintEqualToAnchor:playerNameLabel.rightAnchor constant:5].active = YES;
     [buttonContainerView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
     [buttonContainerView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     
@@ -117,49 +114,49 @@ static int playerNumber = 0;
 
 - (void)incrementLifeLabelOne
 {
-    currentLifeCount += 1;
-    lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    self.currentLifeCount += 1;
+    lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
 }
 
 - (void)decrementLifeLabelOne
 {
-    if (currentLifeCount == 0) {
+    if (self.currentLifeCount == 0) {
         return;
     }
-    currentLifeCount -= 1;
-    lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    self.currentLifeCount -= 1;
+    lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
 }
 
 - (void)incrementLifeLabelFive
 {
-    currentLifeCount += 5;
-    lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    self.currentLifeCount += 5;
+    lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
 }
 
 - (void)decrementLifeLabelFive
 {
-    if (currentLifeCount == 0 || currentLifeCount - 5 <= 0) {
-        currentLifeCount = 0;
+    if (self.currentLifeCount == 0 || self.currentLifeCount - 5 <= 0) {
+        self.currentLifeCount = 0;
     } else {
-        currentLifeCount -= 5;
+        self.currentLifeCount -= 5;
     }
-    lifeCountLabel.text = [NSString stringWithFormat:@"%d", currentLifeCount];
+    lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
 }
 
 - (void)showingLosingLabelIfNeeded
 {
-    if (currentLifeCount == 0 && [self.delegate respondsToSelector:@selector(presentLosingPlayer:)]) {
+    if (self.currentLifeCount == 0 && [self.delegate respondsToSelector:@selector(presentLosingPlayer:)]) {
         [self.delegate presentLosingPlayer:playerNameLabel.text];
     }
 }
 
 - (void)hideLosingLabelIfNeeded
 {
-    if (currentLifeCount > 0 && [self.delegate respondsToSelector:@selector(hideLosingPlayerLabel)]) {
+    if (self.currentLifeCount > 0 && [self.delegate respondsToSelector:@selector(hideLosingPlayerLabel)]) {
         [self.delegate hideLosingPlayerLabel];
     }
 }

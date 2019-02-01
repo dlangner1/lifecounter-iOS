@@ -37,14 +37,9 @@
     playerManagerView = [[PlayerManagerView alloc]initWithDelegate:self];
     [self.view addSubview:playerManagerView];
     
-//    scrollView = [[UIScrollView alloc]init];
-//    scrollView.showsVerticalScrollIndicator = YES;
-//    [self.view addSubview:scrollView];
-//    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [scrollView.topAnchor constraintEqualToAnchor:playerManagerView.bottomAnchor].active = YES;
-//    [scrollView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
-//    [scrollView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
-//    [scrollView.bottomAnchor constraintLessThanOrEqualToAnchor:losingPlayerLabel.topAnchor constant:-10].active = YES;
+    scrollView = [[UIScrollView alloc]init];
+    scrollView.showsVerticalScrollIndicator = YES;
+    [self.view addSubview:scrollView];
     
     [self setupPlayerLifeViews];
     [self setSubviewConstraints];
@@ -55,34 +50,43 @@
     playerLifeContainerView = [[UIStackView alloc]init];
     playerLifeContainerView.axis = UILayoutConstraintAxisVertical;
     playerLifeContainerView.alignment = UIStackViewAlignmentCenter;
-    playerLifeContainerView.spacing = 10;
+    playerLifeContainerView.spacing = 20;
     playerLifeContainerView.distribution = UIStackViewDistributionEqualSpacing;
     
     for (int i = 0; i < 4; i++) {
         [self addPlayerLifeView];
     }
-    [self.view addSubview:playerLifeContainerView];
+    [scrollView addSubview:playerLifeContainerView];
+    [scrollView setContentSize:playerLifeContainerView.bounds.size];
 }
 
 #pragma mark Layout
 
 - (void)setSubviewConstraints
 {
-    losingPlayerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [losingPlayerLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
-    [losingPlayerLabel.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10].active = YES;
-    
     playerManagerView.translatesAutoresizingMaskIntoConstraints = NO;
     [playerManagerView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
     [playerManagerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
     [playerManagerView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
-    [playerManagerView.heightAnchor constraintEqualToConstant:100].active = YES;
+    [playerManagerView.heightAnchor constraintEqualToConstant:80].active = YES;
+    
+    losingPlayerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [losingPlayerLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [losingPlayerLabel.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10].active = YES;
+    
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [scrollView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = YES;
+    [scrollView.topAnchor constraintEqualToAnchor:playerManagerView.bottomAnchor].active = YES;
+    [scrollView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
+    [scrollView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
+    [scrollView.bottomAnchor constraintEqualToAnchor:losingPlayerLabel.topAnchor constant:-10].active = YES;
     
     playerLifeContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [playerLifeContainerView.topAnchor constraintEqualToAnchor:playerManagerView.bottomAnchor].active = YES;
-    [playerLifeContainerView.leftAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leftAnchor].active = YES;
-    [playerLifeContainerView.rightAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.rightAnchor].active = YES;
-    [playerLifeContainerView.bottomAnchor constraintLessThanOrEqualToAnchor:losingPlayerLabel.topAnchor constant:-10].active = YES;
+    [playerLifeContainerView.widthAnchor constraintEqualToAnchor:scrollView.widthAnchor].active = YES;
+    [playerLifeContainerView.topAnchor constraintEqualToAnchor:scrollView.topAnchor].active = YES;
+    [playerLifeContainerView.leftAnchor constraintEqualToAnchor:scrollView.leftAnchor].active = YES;
+    [playerLifeContainerView.rightAnchor constraintEqualToAnchor:scrollView.rightAnchor].active = YES;
+    [playerLifeContainerView.bottomAnchor constraintLessThanOrEqualToAnchor:scrollView.bottomAnchor].active = YES;
 }
 
 # pragma mark PlayerLifeViewsDelegate

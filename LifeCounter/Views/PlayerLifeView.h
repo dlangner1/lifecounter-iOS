@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PlayerLifeView : UIView
 
 @property (nonatomic, weak) id<PlayerLifeViewDelegate> delegate;
+@property (nonatomic) int currentLifeCount;
+
 
 - (instancetype)initWithDelegate:(id <PlayerLifeViewDelegate>)delegate;
 
