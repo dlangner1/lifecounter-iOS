@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)saveMove:(NSString *)playerName didAdd:(BOOL)didAdd PointCost:(int)pointCost;
 
+- (void)handlePlayerManagerButtonState:(int)currentLife;
+
 @end
 
 @interface PlayerLifeView : UIView <UITextFieldDelegate>

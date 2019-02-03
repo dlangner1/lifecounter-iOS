@@ -138,6 +138,17 @@
     [historyTableViewController.tableView reloadData];
 }
 
+- (void)handlePlayerManagerButtonState:(int)currentLife
+{
+    BOOL shouldEnable = currentLife == 20;
+    
+    playerManagerView.addPlayerButton.enabled = shouldEnable;
+    playerManagerView.removePlayerButton.enabled = shouldEnable;
+    
+    playerManagerView.addPlayerButton.backgroundColor = shouldEnable ? UIColor.greenColor : UIColor.grayColor;
+    playerManagerView.removePlayerButton.backgroundColor = shouldEnable ? UIColor.redColor : UIColor.grayColor;
+}
+
 
 # pragma mark PlayerManagerViewDelegate
 

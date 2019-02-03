@@ -127,8 +127,9 @@ static int playerNumber = 0;
     self.currentLifeCount += 1;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
-    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)] && [self.delegate respondsToSelector:@selector(handlePlayerManagerButtonState:)]) {
         [self.delegate saveMove:playerNameLabel.text didAdd:YES PointCost:1];
+        [self.delegate handlePlayerManagerButtonState:self.currentLifeCount];
     }
 }
 
@@ -140,9 +141,10 @@ static int playerNumber = 0;
     self.currentLifeCount -= 1;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
-    [self.delegate saveMove:playerNameLabel.text didAdd:NO PointCost:1];
-    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+    
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)] && [self.delegate respondsToSelector:@selector(handlePlayerManagerButtonState:)]) {
         [self.delegate saveMove:playerNameLabel.text didAdd:NO PointCost:1];
+        [self.delegate handlePlayerManagerButtonState:self.currentLifeCount];
     }
 }
 
@@ -152,8 +154,9 @@ static int playerNumber = 0;
     self.currentLifeCount += value;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
-    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)] && [self.delegate respondsToSelector:@selector(handlePlayerManagerButtonState:)]) {
         [self.delegate saveMove:playerNameLabel.text didAdd:YES PointCost:value];
+        [self.delegate handlePlayerManagerButtonState:self.currentLifeCount];
     }
 }
 
@@ -167,8 +170,9 @@ static int playerNumber = 0;
     }
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
-    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)] && [self.delegate respondsToSelector:@selector(handlePlayerManagerButtonState:)]) {
         [self.delegate saveMove:playerNameLabel.text didAdd:NO PointCost:value];
+        [self.delegate handlePlayerManagerButtonState:self.currentLifeCount];
     }
 }
 
