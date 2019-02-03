@@ -16,6 +16,8 @@
 		F293AD3B21FBB90C00A99014 /* LifeCounterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD3A21FBB90C00A99014 /* LifeCounterTests.m */; };
 		F293AD4A21FBC1CC00A99014 /* PlayerLifeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */; };
 		F2FB058B2203C5080075F9AE /* PlayerManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FB058A2203C5080075F9AE /* PlayerManagerView.m */; };
+		F2FB059C220677300075F9AE /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FB059B220677300075F9AE /* HistoryTableViewController.m */; };
+		F2FB059F22067C4E0075F9AE /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FB059E22067C4E0075F9AE /* HistoryTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,10 @@
 		F293AD4921FBC1CC00A99014 /* PlayerLifeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerLifeView.m; sourceTree = "<group>"; };
 		F2FB05892203C5080075F9AE /* PlayerManagerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerManagerView.h; sourceTree = "<group>"; };
 		F2FB058A2203C5080075F9AE /* PlayerManagerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerManagerView.m; sourceTree = "<group>"; };
+		F2FB059A220677300075F9AE /* HistoryTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
+		F2FB059B220677300075F9AE /* HistoryTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
+		F2FB059D22067C4E0075F9AE /* HistoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewCell.h; sourceTree = "<group>"; };
+		F2FB059E22067C4E0075F9AE /* HistoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,8 @@
 			children = (
 				F293AD2421FBB90900A99014 /* ViewController.h */,
 				F293AD2521FBB90900A99014 /* ViewController.m */,
+				F2FB059A220677300075F9AE /* HistoryTableViewController.h */,
+				F2FB059B220677300075F9AE /* HistoryTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -129,6 +137,7 @@
 		F293AD4721FBC02400A99014 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F2FB0596220663970075F9AE /* Cells */,
 				F2FB058F22042A940075F9AE /* PlayerLifeViews */,
 			);
 			path = Views;
@@ -143,6 +152,15 @@
 				F2FB058A2203C5080075F9AE /* PlayerManagerView.m */,
 			);
 			path = PlayerLifeViews;
+			sourceTree = "<group>";
+		};
+		F2FB0596220663970075F9AE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F2FB059D22067C4E0075F9AE /* HistoryTableViewCell.h */,
+				F2FB059E22067C4E0075F9AE /* HistoryTableViewCell.m */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,9 +263,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2FB059C220677300075F9AE /* HistoryTableViewController.m in Sources */,
 				F293AD2621FBB90900A99014 /* ViewController.m in Sources */,
 				F2FB058B2203C5080075F9AE /* PlayerManagerView.m in Sources */,
 				F293AD3121FBB90C00A99014 /* main.m in Sources */,
+				F2FB059F22067C4E0075F9AE /* HistoryTableViewCell.m in Sources */,
 				F293AD2321FBB90900A99014 /* AppDelegate.m in Sources */,
 				F293AD4A21FBC1CC00A99014 /* PlayerLifeView.m in Sources */,
 			);

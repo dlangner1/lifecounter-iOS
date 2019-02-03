@@ -38,7 +38,7 @@ static int playerNumber = 0;
         // Initialize all subviews
         playerNumber += 1;
         playerNameLabel = [[UILabel alloc]init];
-        [playerNameLabel setTextColor:UIColor.whiteColor];
+        [playerNameLabel setTextColor:[UIColor colorWithRed:0.85 green:0.86 blue:0.84 alpha:1.0]];
         [playerNameLabel setFont:[UIFont systemFontOfSize:18]];
         playerNameLabel.text = [NSString stringWithFormat: @"Player %d", playerNumber];
         [self addSubview:playerNameLabel];
@@ -50,13 +50,13 @@ static int playerNumber = 0;
         
         plusXTextField = [[UITextField alloc]init];
         plusXTextField.keyboardType = UIKeyboardTypeNumberPad;
-        plusXTextField.backgroundColor = UIColor.whiteColor;
+        plusXTextField.backgroundColor = [UIColor colorWithRed:0.85 green:0.86 blue:0.84 alpha:1.0];
         plusXTextField.text = @"5";
         plusXTextField.delegate = self;
         
         minusXTextField = [[UITextField alloc]init];
         minusXTextField.keyboardType = UIKeyboardTypeNumberPad;
-        minusXTextField.backgroundColor = UIColor.whiteColor;
+        minusXTextField.backgroundColor = [UIColor colorWithRed:0.85 green:0.86 blue:0.84 alpha:1.0];
         minusXTextField.text = @"5";
         minusXTextField.delegate = self;
         
@@ -75,9 +75,9 @@ static int playerNumber = 0;
         [self addSubview:buttonContainerView];
         
         lifeCountLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        lifeCountLabel.backgroundColor = [UIColor colorWithRed:197.0/255 green:31.0/255.0 blue:93.0/255.0 alpha:1.0];
+        lifeCountLabel.backgroundColor = [UIColor colorWithRed:0.18 green:0.40 blue:0.56 alpha:1.0];
         lifeCountLabel.text = [NSString stringWithFormat: @"%d", self.currentLifeCount];
-        [lifeCountLabel setTextColor:UIColor.whiteColor];
+        [lifeCountLabel setTextColor:[UIColor colorWithRed:0.85 green:0.86 blue:0.84 alpha:1.0]];
         lifeCountLabel.textAlignment = NSTextAlignmentCenter;
         [lifeCountLabel setFont: [UIFont systemFontOfSize:20]];
         lifeCountLabel.adjustsFontSizeToFitWidth = YES;
@@ -127,6 +127,9 @@ static int playerNumber = 0;
     self.currentLifeCount += 1;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+        [self.delegate saveMove:playerNameLabel.text didAdd:YES PointCost:1];
+    }
 }
 
 - (void)decrementLifeLabelOne
@@ -137,6 +140,10 @@ static int playerNumber = 0;
     self.currentLifeCount -= 1;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
+    [self.delegate saveMove:playerNameLabel.text didAdd:NO PointCost:1];
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+        [self.delegate saveMove:playerNameLabel.text didAdd:NO PointCost:1];
+    }
 }
 
 - (void)incrementLifeLabelX
@@ -145,6 +152,9 @@ static int playerNumber = 0;
     self.currentLifeCount += value;
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self hideLosingLabelIfNeeded];
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+        [self.delegate saveMove:playerNameLabel.text didAdd:YES PointCost:value];
+    }
 }
 
 - (void)decrementLifeLabelX
@@ -157,6 +167,9 @@ static int playerNumber = 0;
     }
     lifeCountLabel.text = [NSString stringWithFormat:@"%d", self.currentLifeCount];
     [self showingLosingLabelIfNeeded];
+    if ([self.delegate respondsToSelector:@selector(saveMove:didAdd:PointCost:)]) {
+        [self.delegate saveMove:playerNameLabel.text didAdd:NO PointCost:value];
+    }
 }
 
 # pragma mark UITextFieldDelegate

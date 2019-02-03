@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "PlayerLifeView.h"
 #import "PlayerManagerView.h"
+#import "HistoryTableViewController.h"
 
 @interface ViewController ()
 
@@ -16,6 +17,8 @@
 
 @implementation ViewController
 {
+    HistoryTableViewController *historyTableViewController;
+    
     UIScrollView *scrollView;
     
     UIStackView *playerLifeContainerView;
@@ -25,11 +28,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:20.0/255 green:29.0/255 blue:38.0/255 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:0.09 green:0.26 blue:0.36 alpha:1.0];
+    
+    historyTableViewController = [[HistoryTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    
+    [self setupNavigationBar];
     
     losingPlayerLabel = [[UILabel alloc]init];
     losingPlayerLabel.hidden = YES;
-    [losingPlayerLabel setTextColor:[UIColor colorWithRed:197.0/255 green:31.0/255.0 blue:93.0/255.0 alpha:1.0]];
+    [losingPlayerLabel setTextColor:[UIColor colorWithRed:0.85 green:0.86 blue:0.84 alpha:1.0]];
     [losingPlayerLabel setFont: [UIFont systemFontOfSize:25]];
     losingPlayerLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:losingPlayerLabel];
@@ -45,12 +52,21 @@
     [self setSubviewConstraints];
 }
 
+- (void)setupNavigationBar
+{
+    UIBarButtonItem *historyBarButton = [[UIBarButtonItem alloc]initWithTitle:@"History" style:UIBarButtonItemStylePlain target:self action:@selector(navigateToHistoryPage)];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.51 green:0.76 blue:0.84 alpha:1.0];
+    self.navigationItem.rightBarButtonItem = historyBarButton;
+    self.navigationItem.title = @"Life Counter";
+    
+}
+
 - (void)setupPlayerLifeViews
 {
     playerLifeContainerView = [[UIStackView alloc]init];
     playerLifeContainerView.axis = UILayoutConstraintAxisVertical;
     playerLifeContainerView.alignment = UIStackViewAlignmentCenter;
-    playerLifeContainerView.spacing = 20;
+    playerLifeContainerView.spacing = 50;
     playerLifeContainerView.distribution = UIStackViewDistributionEqualSpacing;
     
     for (int i = 0; i < 4; i++) {
@@ -111,6 +127,17 @@
     losingPlayerLabel.hidden = YES;
 }
 
+- (void)saveMove:(NSString *)playerName didAdd:(BOOL)didAdd PointCost:(int)pointCost
+{
+    if (!historyTableViewController.moveHistoryList) {
+        historyTableViewController.moveHistoryList = [[NSMutableArray alloc]init];
+    }
+    
+    NSString *move = [NSString stringWithFormat:@"%@ %@ %d life", playerName, didAdd ? @"gained" : @"lost", pointCost];
+    [historyTableViewController.moveHistoryList insertObject:move atIndex:0];
+    [historyTableViewController.tableView reloadData];
+}
+
 
 # pragma mark PlayerManagerViewDelegate
 
@@ -125,6 +152,11 @@
     PlayerLifeView *viewForRemoval = playerManagerView.playerLifeViews[lastIndex];
     [playerManagerView.playerLifeViews removeLastObject];
     [viewForRemoval removeFromSuperview];
+}
+
+- (void)navigateToHistoryPage
+{
+    [self.navigationController pushViewController:historyTableViewController animated:YES];
 }
 
 @end

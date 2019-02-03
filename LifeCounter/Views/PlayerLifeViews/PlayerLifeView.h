@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)hideLosingPlayerLabel;
 
+- (void)saveMove:(NSString *)playerName didAdd:(BOOL)didAdd PointCost:(int)pointCost;
+
 @end
 
 @interface PlayerLifeView : UIView <UITextFieldDelegate>
